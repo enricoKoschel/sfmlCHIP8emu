@@ -353,10 +353,6 @@ private:
 		int col = registers[(opcode & 0x0F00) >> 8];
 		int index = width * row + col;
 
-		// black and white "pixels"
-		const wchar_t BLACK = ' ';
-		const wchar_t WHITE = 0x2588; // U+2588
-
 		for (int i = 0; i < (opcode & 0x000F); i++) {
 			for (int j = 0; j < 8; j++) {
 				int pixel = index + j + (i * width);
