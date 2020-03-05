@@ -405,7 +405,7 @@ private:
 		delayTimer = registers[(opcode & 0x0F00) >> 8];
 	}
 	void opFX18(WORD opcode) {
-		// 	Sets the sound timer to VX
+		// Sets the sound timer to VX
 		soundTimer = registers[(opcode & 0x0F00) >> 8];
 	}
 	void opFX1E(WORD opcode) {

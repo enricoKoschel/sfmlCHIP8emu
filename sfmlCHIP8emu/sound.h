@@ -2,7 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <thread>
 
-template <typename T> int sgn(T val) {
+template <typename T> inline int sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
 
@@ -16,29 +16,26 @@ private:
 	}
 
 public:
-	static bool playSound(int frequency, int duration, int volume, int type = 0, bool blocking = false) {
+	static bool playSound(float frequency, int duration, int volume, int type = 0, bool blocking = false) {
 		const double TWO_PI = 6.28318;
 		const int sampleRate = 44100;
-		const double increment = 440. / sampleRate;
 		const unsigned samples = sampleRate * duration * 0.001;
 		const int amplitude = volume;
 
 		sf::Int16* raw = new sf::Int16[samples];
 
-		double x = 0;
+		double t = 0;
 		switch (type) {
 		case 0:
 			// Sine wave
 			for (unsigned i = 0; i < samples; i++) {
-				raw[i] = amplitude * sin(x * TWO_PI * frequency);
-				x += increment;
+				raw[i] = amplitude * sin(TWO_PI * frequency * i / sampleRate);
 			}
 			break;
 		case 1:
 			// Square wave
 			for (unsigned i = 0; i < samples; i++) {
-				raw[i] = amplitude * sgn(sin(x * TWO_PI * frequency));
-				x += increment;
+				raw[i] = amplitude * sgn(sin(TWO_PI * frequency * i / sampleRate));
 			}
 			break;
 		}
